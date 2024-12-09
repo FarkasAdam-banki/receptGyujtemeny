@@ -4,7 +4,7 @@ export const recipeData = [
       name: "Kávés sajttorta karamellöntettel",
       diffuculty:"nehéz",
       cooktime: 120,
-      imageurl: "../assets/kaveTorta.jpg",
+      imageurl: "./assets/kaveTorta.jpg",
       description:"",
 
     },
@@ -13,7 +13,7 @@ export const recipeData = [
         name: "Őzgerinceben sűlt füstös csirkemell tepsis burgonyával",
         diffuculty:"nehéz",
         cooktime: 60,
-        imageurl: "../assets/ozgerinc.jpg",
+        imageurl: "./assets/ozgerinc.jpg",
         description:"",
   
       },
@@ -22,7 +22,7 @@ export const recipeData = [
         name: "Klasszikus tárkonyos csirkeraguleves",
         diffuculty:"közepes",
         cooktime: 60,
-        imageurl: "../assets/raguleves.jpg",
+        imageurl: "./assets/raguleves.jpg",
         description:"",
   
       },{
@@ -30,7 +30,7 @@ export const recipeData = [
         name: "Spenótfőzelék fokhagymásan",
         diffuculty:"könnyű",
         cooktime: 30,
-        imageurl: "../assets/spenotfozelek.jpg",
+        imageurl: "./assets/spenotfozelek.jpg",
         description:"",
   
       },{
@@ -38,7 +38,7 @@ export const recipeData = [
         name: "Krémsajtos tojássaláta",
         diffuculty:"könnyű",
         cooktime: 20,
-        imageurl: "../assets/tojassalata.jpg",
+        imageurl: "./assets/tojassalata.jpg",
         description:"",
   
       }

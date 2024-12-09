@@ -5,7 +5,6 @@ import { ref } from 'vue'
 <template>
   <section>
     <div class="row">
-      <!-- Rövidebb kereső sáv -->
       <input class="form-control custom-search" type="text" placeholder="Keressen receptet...">
       
       <div class="col-3">

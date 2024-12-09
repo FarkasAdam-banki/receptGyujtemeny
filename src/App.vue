@@ -1,6 +1,10 @@
 <script setup>
 import Kereses from './components/kereses.vue';
+import { recipeData } from './data/recipes';
 
+const getURL = (url) =>{
+    return new URL(url,import.meta.url).href
+}
 
 </script>
 
@@ -25,15 +29,21 @@ import Kereses from './components/kereses.vue';
 
 
     <main>
-
-                <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
+        <div>
+            <kereses />    
+        </div>
+        <div class="receptek">
+             <div class="card" style="width: 18rem;" v-for="recept in recipeData">
+        <img class="card-img-top" :src="getURL(recept.imageurl)" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">{{ recept.name }}</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
         </div>
+        </div>
+
+               
 
 
 
@@ -49,7 +59,7 @@ import Kereses from './components/kereses.vue';
     </footer>
 
 
-   <kereses />               
+             
 </template>
 
 <style scoped>
