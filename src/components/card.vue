@@ -1,5 +1,14 @@
 <script setup>
 
+const props = defineProps({
+    recept : Object
+})
+
+const getURL = (url) =>{
+    return new URL(url,import.meta.url).href
+}
+
+
 </script>
 
 <template>
@@ -9,12 +18,15 @@
         </div>
         <div class="receptek">
              <div class="card">
-        <img class="card-img-top" src="" alt="Card image cap">
+        <img class="card-img-top" :src="getURL(recept.imageurl)" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text"><small class="text-body-secondary"></small></p>
-            <p class="card-text diffuculty-text" >
-            
+            <h5 class="card-title">{{ recept.name }}</h5>
+            <p class="card-text"><small class="text-body-secondary">Elkészitési idő: {{recept.cooktime}} perc</small></p>
+            <p 
+            class="card-text diffuculty-text"
+            :class="{  'bg-danger text-white': recept.diffuculty === 'nehéz','bg-success text-white': recept.diffuculty === 'könnyű','bg-warning text-dark': recept.diffuculty === 'közepes' }"
+          >
+            {{ recept.diffuculty }}
           </p>
           <p><a href="#" class="btn btn-primary">Részletek</a></p>
             
