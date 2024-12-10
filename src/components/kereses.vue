@@ -40,8 +40,10 @@ watch([nehezseg, keresesiSzoveg, rendezesiOpcio], () => {
 <template>
   <section>
     <div class="row">
-    
-      <input class="form-control" type="text" placeholder="Keressen receptet..." v-model="keresesiSzoveg"  />
+      <div class="col-4">
+        <input class="form-control " type="text" placeholder="Keressen receptet..." v-model="keresesiSzoveg"  />
+
+      </div>
 
       
       <div class="col-3">
