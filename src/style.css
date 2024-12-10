@@ -5,6 +5,11 @@
 
 }
 
-*{
+body{
   font-family: Poppins ;
+  padding: 0px;
+  margin: 0px;
+}
+.container-fluid{
+  padding: 0px;
 }
