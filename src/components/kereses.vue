@@ -1,5 +1,40 @@
 <script setup>
+import { ref, defineProps, watch } from 'vue';
 
+const props = defineProps({
+  elemek: Array
+});
+
+const sortedTomb = ref([...props.elemek]);
+
+const emit = defineEmits(['nehezseg-valtozas']);
+
+const nehezseg = ref("");
+const keresesiSzoveg = ref("");
+const rendezesiOpcio = ref("0");
+
+watch([nehezseg, keresesiSzoveg, rendezesiOpcio], () => {
+  let filtered = [...props.elemek];
+  if (nehezseg.value !== "") {
+    filtered = filtered.filter(elem => elem.diffuculty === nehezseg.value);
+  }
+  
+  if (keresesiSzoveg.value.trim() !== "") {
+    filtered = filtered.filter(elem =>
+      elem.name.toLowerCase().includes(keresesiSzoveg.value.trim().toLowerCase())
+    );
+  }
+
+  if (rendezesiOpcio.value === "1") {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (rendezesiOpcio.value === "0") {
+    filtered.sort((a, b) => a.cooktime - b.cooktime);
+  }
+  sortedTomb.value = filtered;
+ 
+  emit('nehezseg-valtozas', sortedTomb.value);
+  
+});
 </script>
 
 <template>

@@ -1,70 +1,74 @@
 <script setup>
-import Kereses from './components/kereses.vue';
-import { recipeData } from './data/recipes';
+import { ref, onMounted } from 'vue';
+import kereses from './components/kereses.vue'
+import card from './components/card.vue'
+import {recipeData} from './data/recipes.js'
 
-const getURL = (url) =>{
-    return new URL(url,import.meta.url).href
-}
+
+const szurtReceptek = ref([]);
+
+const handleNehezsegValtozas = (updatedList) => {
+  szurtReceptek.value = updatedList;
+};
+
+onMounted(() => {
+  handleNehezsegValtozas(recipeData);
+});
 
 </script>
 
 <template>
+  <div class="container-fluid">
     <header>
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a class="navbar-brand" href="#">Logo</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                  
+                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  
+                  <a class="navbar-brand" href="#">Receptek</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="#">Főoldal</a>
-                        <a class="nav-item nav-link" href="#">Receptek</a>
-                        <a class="nav-item nav-link" href="#">új recept</a>
-                        <a class="nav-item nav-link" href="#">kedvencek</a>
-                        </div>
-                    </div>
-                    </nav>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                     <ul class="navbar-nav">
+                     <li class="nav-item">
+                     <a class="nav-link active" aria-current="page" href="#">Főoldal</a>
+                     </li>
+                     <li class="nav-item">
+                     <a class="nav-link" href="#">Receptek</a>
+                   </li>
+                    <li class="nav-item">
+                     <a class="nav-link" href="#">új recept</a>
+                     </li>
+                   <li class="nav-item">
+          <a class="nav-link" href="#">kedvencek</a>
+        </li>
+      </ul>
+    </div>
+ 
+</nav>
 
     </header>  
-
-
     <main>
-        <div>
-            <kereses />    
+      <kereses :elemek="recipeData"  @nehezseg-valtozas="handleNehezsegValtozas"/>
+
+      <div class="row lista">
+        
+        <div class="col-12 col-md-6 col-lg-4 mb-4" v-for="recept in szurtReceptek" :key="recept.id">
+          <card :recept="recept" />
         </div>
-        <div class="receptek">
-             <div class="card" style="width: 18rem;" v-for="recept in recipeData">
-        <img class="card-img-top" :src="getURL(recept.imageurl)" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{ recept.name }}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-        </div>
-        </div>
-
-               
-
-
-
-
-
+      </div>
 
     </main>
-
     <footer>
 
 
-
     </footer>
+  </div>
+      
 
-
-             
 </template>
 
+
 <style scoped>
-.navbar{
-    padding: 20px;
-}
+
 
 </style>
