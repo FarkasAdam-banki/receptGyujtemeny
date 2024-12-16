@@ -13,8 +13,8 @@ const recipes = ref(recipeData);
 const isModalVisible = ref(false);
 
 const addRecipe = () => {
-  if (!name.value || !diffuculty.value || !cooktime.value || !description.value || !imageurl.value) {
-    alert('Kérlek, tölts ki minden mezőt és adj meg egy képet!');
+  if (!name.value.trim() || !diffuculty.value.trim() || !cooktime.value || !description.value.trim() || !imageurl.value) {
+    alert('Kérlek, tölts ki minden mezőt, és ne csak szóközöket adj meg!');
     return;
   }
 
