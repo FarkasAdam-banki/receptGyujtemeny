@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, watch } from 'vue';
+import { ref, defineProps, watch, onMounted } from 'vue';
 
 const props = defineProps({
   recipes: Array
@@ -11,14 +11,23 @@ const emit = defineEmits(['handle-change']);
 
 const diff = ref("");
 const searchText = ref("");
-const sortOption = ref("0");
+const sortOption = ref("0"); 
+
+
+onMounted(() => {
+  triggerSearchAndSort();
+});
 
 watch([diff, searchText, sortOption], () => {
+  triggerSearchAndSort();
+});
+
+const triggerSearchAndSort = () => {
   let filtered = [...props.recipes];
   if (diff.value !== "") {
     filtered = filtered.filter(elem => elem.diffuculty === diff.value);
   }
-  
+
   if (searchText.value.trim() !== "") {
     filtered = filtered.filter(elem =>
       elem.name.toLowerCase().includes(searchText.value.trim().toLowerCase())
@@ -31,11 +40,12 @@ watch([diff, searchText, sortOption], () => {
     filtered.sort((a, b) => a.cooktime - b.cooktime);
   }
   sortedArray.value = filtered;
- 
+
   emit('handle-change', sortedArray.value);
-  
-});
+};
 </script>
+
+
 
 <template>
   <section>
