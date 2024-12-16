@@ -5,11 +5,21 @@
 
 }
 
-body{
-  font-family: Poppins ;
+body {
   padding: 0px;
   margin: 0px;
+  background-image: url(./assets/bg.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+ 
 }
+#app {
+  background-color: rgba(255, 255, 255, 0.5);
+  min-height: 100vh; 
+}
+
 .container-fluid{
   padding: 0px;
 }
