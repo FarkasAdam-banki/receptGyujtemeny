@@ -2,37 +2,37 @@
 import { ref, defineProps, watch } from 'vue';
 
 const props = defineProps({
-  elemek: Array
+  recipes: Array
 });
 
-const sortedTomb = ref([...props.elemek]);
+const sortedArray = ref([...props.recipes]);
 
-const emit = defineEmits(['nehezseg-valtozas']);
+const emit = defineEmits(['handle-change']);
 
-const nehezseg = ref("");
-const keresesiSzoveg = ref("");
-const rendezesiOpcio = ref("0");
+const diff = ref("");
+const searchText = ref("");
+const sortOption = ref("0");
 
-watch([nehezseg, keresesiSzoveg, rendezesiOpcio], () => {
-  let filtered = [...props.elemek];
-  if (nehezseg.value !== "") {
-    filtered = filtered.filter(elem => elem.diffuculty === nehezseg.value);
+watch([diff, searchText, sortOption], () => {
+  let filtered = [...props.recipes];
+  if (diff.value !== "") {
+    filtered = filtered.filter(elem => elem.diffuculty === diff.value);
   }
   
-  if (keresesiSzoveg.value.trim() !== "") {
+  if (searchText.value.trim() !== "") {
     filtered = filtered.filter(elem =>
-      elem.name.toLowerCase().includes(keresesiSzoveg.value.trim().toLowerCase())
+      elem.name.toLowerCase().includes(searchText.value.trim().toLowerCase())
     );
   }
 
-  if (rendezesiOpcio.value === "1") {
+  if (sortOption.value === "1") {
     filtered.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (rendezesiOpcio.value === "0") {
+  } else if (sortOption.value === "0") {
     filtered.sort((a, b) => a.cooktime - b.cooktime);
   }
-  sortedTomb.value = filtered;
+  sortedArray.value = filtered;
  
-  emit('nehezseg-valtozas', sortedTomb.value);
+  emit('handle-change', sortedArray.value);
   
 });
 </script>
@@ -40,14 +40,12 @@ watch([nehezseg, keresesiSzoveg, rendezesiOpcio], () => {
 <template>
   <section>
     <div class="row">
-      <div class="col-4">
-        <input class="form-control " type="text" placeholder="Keressen receptet..." v-model="keresesiSzoveg"  />
-
-      </div>
+    
+      <input class="form-control" type="text" placeholder="Keressen receptet..." v-model="searchText"  />
 
       
       <div class="col-3">
-        <select class="form-select" aria-label="Minden nehézség" v-model="nehezseg">
+        <select class="form-select" aria-label="Minden nehézség" v-model="diff">
           <option value="">Minden nehézség</option>
           <option value="könnyű">könnyű</option>
           <option value="közepes">közepes</option>
@@ -57,7 +55,7 @@ watch([nehezseg, keresesiSzoveg, rendezesiOpcio], () => {
 
      
       <div class="col-3">
-        <select class="form-select" aria-label="Elkészítési idő szerint" v-model="rendezesiOpcio">
+        <select class="form-select" aria-label="Elkészítési idő szerint" v-model="sortOption">
           <option value="0">Elkészítési idő szerint</option>
           <option value="1">Név szerint</option>
         </select>
@@ -69,7 +67,7 @@ watch([nehezseg, keresesiSzoveg, rendezesiOpcio], () => {
 </template>
 <style scoped>
 section {
-  background-color: #f9f9f9;
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

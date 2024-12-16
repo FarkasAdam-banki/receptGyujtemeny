@@ -1,26 +1,49 @@
 <script setup>
+const props = defineProps({
+  recipe: Object,
+});
 
+const emit = defineEmits(['close-details']);
+
+const getURL = (url) => {
+  return new URL(url, import.meta.url).href;
+};
+
+
+const closeDetails = () => {
+  const detailsView = document.querySelector('.details-view');
+  if (detailsView) {
+    detailsView.classList.add('fade-out'); 
+    setTimeout(() => {
+      emit('close-details'); 
+    }, 400); 
+  }
+};
 </script>
 
 <template>
     <main>
-    <div class="details-view">
-      <button class="close-btn">X</button>
+    <div class="details-view" v-show="recipe" :class="{'fade-in': showDetails}">
+      <button class="close-btn" @click="closeDetails">X</button>
       
       
       <div class="details-card card">
-        <img class="card-img-top" :src="getURL()" alt="Card image cap">
+        <img class="card-img-top" :src="getURL(recipe.imageurl)" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title"></h5>
-          <p class="card-text"><small class="text-body-secondary">Elkészítési idő:  perc</small></p>
-          <p class="card-text diffuculty-text">
-           
+          <h5 class="card-title">{{ recipe.name }}</h5>
+          <p class="card-text"><small class="text-body-secondary">Elkészítési idő: {{ recipe.cooktime }} perc</small></p>
+          <p class="card-text diffuculty-text" :class="{
+            'bg-danger text-white': recipe.diffuculty === 'nehéz',
+            'bg-success text-white': recipe.diffuculty === 'könnyű',
+            'bg-warning text-dark': recipe.diffuculty === 'közepes'
+          }">
+            {{ recipe.diffuculty }}
           </p>
         </div>
       </div>
       <div class="details-description">
         <h3>Recept leírása</h3>
-        <p></p>
+        <p>{{ recipe.description }}</p>
       </div>
     </div>
   </main>

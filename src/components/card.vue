@@ -1,11 +1,17 @@
 <script setup>
-
+import { defineEmits } from 'vue';
 const props = defineProps({
-    recept : Object
+    recipe : Object
 })
 
 const getURL = (url) =>{
     return new URL(url,import.meta.url).href
+}
+
+const emit = defineEmits(["recipe-info"])
+
+const recpetReszlet = (recipe) =>{
+emit('recipe-info',recipe)
 }
 
 
@@ -14,21 +20,20 @@ const getURL = (url) =>{
 <template>
 
     <main>
-        <div>
-        </div>
-        <div class="receptek">
+        
+        <div class="recipes">
              <div class="card">
-        <img class="card-img-top" :src="getURL(recept.imageurl)" alt="Card image cap">
+        <img class="card-img-top" :src="getURL(recipe.imageurl)" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">{{ recept.name }}</h5>
-            <p class="card-text"><small class="text-body-secondary">Elkészitési idő: {{recept.cooktime}} perc</small></p>
+            <h5 class="card-title">{{ recipe.name }}</h5>
+            <p class="card-text"><small class="text-body-secondary">Elkészitési idő: {{recipe.cooktime}} perc</small></p>
             <p 
             class="card-text diffuculty-text"
-            :class="{  'bg-danger text-white': recept.diffuculty === 'nehéz','bg-success text-white': recept.diffuculty === 'könnyű','bg-warning text-dark': recept.diffuculty === 'közepes' }"
+            :class="{  'bg-danger text-white': recipe.diffuculty === 'nehéz','bg-success text-white': recipe.diffuculty === 'könnyű','bg-warning text-dark': recipe.diffuculty === 'közepes' }"
           >
-            {{ recept.diffuculty }}
+            {{ recipe.diffuculty }}
           </p>
-          <p><a href="#" class="btn btn-primary">Részletek</a></p>
+          <p><a href="#" class="btn btn-primary" @click="recpetReszlet(recipe)">Részletek</a></p>
             
         </div>
         </div>
@@ -40,7 +45,8 @@ const getURL = (url) =>{
 </template>
 
 <style scoped>
-.receptek {
+
+.recipes {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,5 +132,10 @@ const getURL = (url) =>{
 .btn-primary:hover {
   background-color: #0056b3;
   transform: scale(1.05);
+}
+@media (max-width: 370px) {
+  .recipes{
+    padding: 20px 0px;
+  }
 }
 </style>
